@@ -2,7 +2,7 @@
 
 This is a fork of https://github.com/rmalayter/ulid-mssql in the format required by the schema package manager.
 
-Install with [schema pm]()
+Install with [schema pm](https://github.com/muxmuse/schema)
 ``` bash
 schema install ssh://git@github.com/muxmuse/ulid.schema.git v0.1.0
 ```
