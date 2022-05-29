@@ -1,3 +1,15 @@
+-- ============================================================================
+-- IMPORTANT LICENSE INFORMATION
+-- ----------------------------------------------------------------------------
+-- THIS FILE IS A MODIFIED VERSION OF THE FILE test.sql AS PUBLISHED BY THE 
+-- ORIGINAL AUTHORS.
+-- SEE README.md FOR DETAILS ABOUT THIS FORK.
+--
+-- Changes:
+-- - The referenced schema was changed from dbo to ulid
+--
+-- ----------------------------------------------------------------------------
+
 /* tests for ulid functions */
 SET NOCOUNT ON
 
@@ -35,7 +47,7 @@ SET @st = SYSUTCDATETIME()
 
 WHILE @c < @cmax
 BEGIN
-	SET @tuid = dbo.ulid()
+	SET @tuid = ulid.ulid()
 	SET @c = @c + 1
 END
 
@@ -65,7 +77,7 @@ SET @st = SYSUTCDATETIME()
 
 WHILE @c < @cmax
 BEGIN
-	SET @tstr = dbo.ulidStr()
+	SET @tstr = ulid.ulidStr()
 	SET @c = @c + 1
 END
 
@@ -80,7 +92,7 @@ SET @st = SYSUTCDATETIME()
 
 WHILE @c < @cmax
 BEGIN
-	SET @tuid = dbo.ulid_seeded(SYSUTCDATETIME(),CRYPT_GEN_RANDOM(10))
+	SET @tuid = ulid.ulid_seeded(SYSUTCDATETIME(),CRYPT_GEN_RANDOM(10))
 	SET @c = @c + 1
 END
 
@@ -105,7 +117,7 @@ BEGIN
 		,d
 		)
 	VALUES (
-		dbo.ulid()
+		ulid.ulid()
 		,N'dummy data for testing purposes; this should be a realistic length for narrow tables.'
 		)
 
@@ -210,7 +222,7 @@ BEGIN
 		,d
 		)
 	VALUES (
-		dbo.ulidStr()
+		ulid.ulidStr()
 		,N'dummy data for testing purposes; this should be a realistic length for narrow tables.'
 		)
 

@@ -1,4 +1,16 @@
+# ulid.schema
+
+This is a fork of https://github.com/rmalayter/ulid-mssql in the format required by the schema package manager.
+
+Install with [schema pm]()
+``` bash
+schema install https://github.com/rmalayter/ulid-mssql v0.1.0
+```
+
+Original README:
+
 # ulid-mssql
+
 Implementation of ULID generator For Microsoft SQL Server
 
 Based on JavaScript implementation at https://github.com/alizain/ulid
