@@ -4,7 +4,7 @@ This is a fork of https://github.com/rmalayter/ulid-mssql in the format required
 
 Install with [schema pm]()
 ``` bash
-schema install https://github.com/rmalayter/ulid-mssql v0.1.0
+schema install ssh://git@github.com/muxmuse/ulid.schema.git v0.1.0
 ```
 
 Original README:
