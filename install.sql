@@ -16,6 +16,7 @@
 -- ----------------------------------------------------------------------------
 
 CREATE VIEW [ulid].[ulid_view]
+WITH SCHEMABINDING
 AS
 SELECT SYSUTCDATETIME() AS dt
     ,CRYPT_GEN_RANDOM(10) AS rnd
@@ -23,6 +24,7 @@ GO
 
 CREATE FUNCTION [ulid].[ulid] ()
 RETURNS UNIQUEIDENTIFIER
+WITH SCHEMABINDING
 AS
 BEGIN
     DECLARE @rnd BINARY (10)
@@ -47,6 +49,7 @@ CREATE FUNCTION [ulid].[base32CrockfordEnc] (
     ,@pad INT = 1
     )
 RETURNS VARCHAR(max)
+WITH SCHEMABINDING
 AS
 BEGIN
     /* modified BASE32 encoding as definied by Crockford at http://www.crockford.com/wrmg/base32.html */
@@ -112,6 +115,7 @@ GO
 
 CREATE FUNCTION [ulid].[base32CrockfordDec] (@x VARCHAR(max))
 RETURNS VARBINARY(max)
+WITH SCHEMABINDING
 AS
 BEGIN
     /* RFC 4648 compliant BASE32 decoding function, takes varchar data to decode as only parameter*/
@@ -172,6 +176,7 @@ GO
 
 CREATE FUNCTION [ulid].[ulidStr] ()
 RETURNS VARCHAR(100)
+WITH SCHEMABINDING
 AS
 BEGIN
     DECLARE @temp BINARY (16)
@@ -187,6 +192,7 @@ CREATE FUNCTION [ulid].[ulid_seeded] (
     ,@rnd BINARY (10)
     )
 RETURNS UNIQUEIDENTIFIER
+WITH SCHEMABINDING
 AS
 BEGIN
     DECLARE @di BIGINT
