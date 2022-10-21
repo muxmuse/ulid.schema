@@ -12,7 +12,7 @@
 --     with statements in install.sql and uninstall.sql 
 -- - All objects are created in schema ulid instead of dbo
 -- - tabs replaced by spaces
--- 
+-- - add functions ulid.encodeUlid and ulid.decodeUlid
 -- ----------------------------------------------------------------------------
 
 CREATE VIEW [ulid].[ulid_view]
@@ -203,4 +203,20 @@ BEGIN
     SET @di = (@di * 1000) + DATEPART(ms, @dt)
 
     RETURN CAST(@rnd + SUBSTRING(CAST(@di AS BINARY (8)), 3, 6) AS UNIQUEIDENTIFIER)
+END
+GO
+
+CREATE FUNCTION [ulid].[decodeUlid](@u VARCHAR(26)) 
+RETURNS VARBINARY(16)
+WITH SCHEMABINDING
+AS BEGIN
+    RETURN CAST(RIGHT(ulid.base32CrockfordDec('000000' + @u), 16) as VARBINARY(16))
+END
+GO
+
+CREATE FUNCTION [ulid].[encodeUlid](@u VARBINARY(16))
+RETURNS VARCHAR(26)
+WITH SCHEMABINDING
+AS BEGIN
+    RETURN RIGHT(ulid.base32CrockfordEnc(0x00000000 + @u, 0), 26)
 END

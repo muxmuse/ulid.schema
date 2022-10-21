@@ -1,5 +1,5 @@
 kind: Schema
 name: ulid
 description: ULID Implementation for T-SQL, forked from https://github.com/rmalayter/ulid-mssql
-gitTag: v0.2.0
+gitTag: v0.3.0
 gitRepoUrl: ssh://git@github.com/muxmuse/ulid.schema.git

@@ -1,3 +1,5 @@
+DROP FUNCTION [ulid].[decodeUlid]
+DROP FUNCTION [ulid].[encodeUlid]
 DROP FUNCTION [ulid].[ulid_seeded]
 DROP FUNCTION [ulid].[ulidStr]
 DROP FUNCTION [ulid].[base32CrockfordDec]
