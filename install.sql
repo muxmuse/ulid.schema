@@ -44,6 +44,28 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION [ulid].[ulid_varbinary_16] ()
+RETURNS varbinary(16)
+WITH SCHEMABINDING
+AS
+BEGIN
+    DECLARE @rnd BINARY (10)
+    DECLARE @dt DATETIME2
+    DECLARE @di BIGINT
+
+    SELECT TOP 1 @dt = dt
+        ,@rnd = rnd
+    FROM ulid.ulid_view
+
+    SET @di = DATEDIFF(hour, CAST('1970-01-01 00:00:00' AS DATETIME2), @dt)
+    SET @di = (@di * 60) + DATEPART(minute, @dt)
+    SET @di = (@di * 60) + DATEPART(second, @dt)
+    SET @di = (@di * 1000) + DATEPART(ms, @dt)
+
+    RETURN SUBSTRING(CAST(@di AS BINARY (8)), 3, 6) + @rnd
+END
+GO
+
 CREATE FUNCTION [ulid].[base32CrockfordEnc] (
     @x VARBINARY(max)
     ,@pad INT = 1
