@@ -12,7 +12,8 @@
 --     with statements in install.sql and uninstall.sql 
 -- - All objects are created in schema ulid instead of dbo
 -- - tabs replaced by spaces
--- - add functions ulid.encodeUlid and ulid.decodeUlid
+-- - added functions ulid.encodeUlid and ulid.decodeUlid
+-- - added functions ulid.base64Encode and ulid.base64Decode
 -- ----------------------------------------------------------------------------
 
 CREATE VIEW [ulid].[ulid_view]
@@ -193,6 +194,22 @@ BEGIN
             END
 
     RETURN @o
+END
+GO
+
+CREATE FUNCTION [ulid].[base64Enc](@u varbinary(max))
+RETURNS VARCHAR(max)
+WITH SCHEMABINDING
+AS BEGIN
+  RETURN CASE WHEN @u IS NULL THEN NULL ELSE CAST('' as xml).value('xs:base64Binary(sql:variable("@u"))', 'varchar(max)') END
+END
+GO
+
+CREATE FUNCTION [ulid].[base64Dec](@u VARCHAR(max))
+RETURNS VARBINARY(max)
+WITH SCHEMABINDING
+AS BEGIN
+    RETURN CASE WHEN @u IS NULL THEN NULL ELSE RETURN CAST('' as xml).value('xs:base64Binary(sql:variable("@u"))', 'varbinary(max)') END
 END
 GO
 
