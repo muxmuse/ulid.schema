@@ -16,6 +16,7 @@
 -- - added functions ulid.base64Encode and ulid.base64Decode
 -- - renamed ulid.ulid to ulid.ulid_uniqueidentifier
 -- - renamed ulid.ulid_seeded to ulid.ulid_uniqueidentifier_seeded
+-- - removed ulid.ulidStr
 -- ----------------------------------------------------------------------------
 
 CREATE VIEW [ulid].[ulid_view]
@@ -211,20 +212,7 @@ CREATE FUNCTION [ulid].[base64Dec](@u VARCHAR(max))
 RETURNS VARBINARY(max)
 WITH SCHEMABINDING
 AS BEGIN
-    RETURN CASE WHEN @u IS NULL THEN NULL ELSE RETURN CAST('' as xml).value('xs:base64Binary(sql:variable("@u"))', 'varbinary(max)') END
-END
-GO
-
-CREATE FUNCTION [ulid].[ulidStr] ()
-RETURNS VARCHAR(100)
-WITH SCHEMABINDING
-AS
-BEGIN
-    DECLARE @temp BINARY (16)
-
-    SET @temp = CAST(ulid.ulid() AS BINARY (16))
-
-    RETURN [ulid].[base32CrockfordEnc](SUBSTRING(@temp, 11, 6) + SUBSTRING(@temp, 1, 10), 0)
+    RETURN CASE WHEN @u IS NULL THEN NULL ELSE CAST('' as xml).value('xs:base64Binary(sql:variable("@u"))', 'varbinary(max)') END
 END
 GO
 
