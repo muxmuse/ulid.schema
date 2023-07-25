@@ -14,6 +14,8 @@
 -- - tabs replaced by spaces
 -- - added functions ulid.encodeUlid and ulid.decodeUlid
 -- - added functions ulid.base64Encode and ulid.base64Decode
+-- - renamed ulid.ulid to ulid.ulid_uniqueidentifier
+-- - renamed ulid.ulid_seeded to ulid.ulid_uniqueidentifier_seeded
 -- ----------------------------------------------------------------------------
 
 CREATE VIEW [ulid].[ulid_view]
@@ -23,7 +25,7 @@ SELECT SYSUTCDATETIME() AS dt
     ,CRYPT_GEN_RANDOM(10) AS rnd
 GO
 
-CREATE FUNCTION [ulid].[ulid] ()
+CREATE FUNCTION [ulid].[ulid_uniqueidentifier] ()
 RETURNS UNIQUEIDENTIFIER
 WITH SCHEMABINDING
 AS
@@ -226,7 +228,7 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION [ulid].[ulid_seeded] (
+CREATE FUNCTION [ulid].[ulid_uniqueidentifier_seeded] (
     @dt DATETIME2
     ,@rnd BINARY (10)
     )
